@@ -9,7 +9,7 @@
 #define GRID_STARTING_X 50
 #define GRID_STARTING_Y 50
 #define GRID_CELL_SIZE 37
-#define GRID_CELL_COUNT 19
+#define GRID_CELL_COUNT 9
 
 bool    update_menu();
 bool    update_grid(int *grid, int *grid_cpy, int grid_size);
