@@ -17,6 +17,7 @@ ifeq ($(OS),Windows_NT)
 
 	DIRECTORIES := $(sort $(dir $(SRC_FILES)))
 else
+	UNAME     := $(shell uname -s)
 	SRC       := src
 	BIN       := bin
 	CC        := clang
@@ -24,7 +25,12 @@ else
 	EXTENSION := 
 
 	INCLUDES     := -I./external/raylib/include 
+
+ifeq ($(UNAME),Darwin)
+	LINKER_FLAGS := -L./external/raylib/lib/macos/ -lraylib  -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL -lm 
+else 
 	LINKER_FLAGS := -L./external/raylib/lib/linux/ -lraylib -lm 
+endif
 	COMPILER_FLAGS := -Wall -Werror -Wextra -g -O0 -Wno-system-headers -Wno-unused-but-set-variable -Wno-unused-variable -Wno-varargs -Wno-unused-private-field -Wno-unused-parameter -Wno-unused-function -fsanitize=undefined -fsanitize-trap
 
 	SRC_FILES := $(shell find $(SRC) -type f -name '*.c')
